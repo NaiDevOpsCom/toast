@@ -1,3 +1,5 @@
 .terraform/
 .env
+.terraform.lock.hcl
+terraform.tfstate.backup
 alvo-ssh-keys
