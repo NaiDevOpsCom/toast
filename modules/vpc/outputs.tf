@@ -9,7 +9,7 @@ output "project" {
 
 # export the environment
 output "environment" {
-  value = var.env
+  value = var.environment
 }
 
 # export the vpc id
@@ -19,7 +19,7 @@ output "vpc_id" {
 
 # export the internet gateway
 output "internet_gateway" {
-  value = var.aws_internet_gateway
+  value = aws_internet_gateway.internet_gateway.id
 }
 
 # export the public subnet az1 id
