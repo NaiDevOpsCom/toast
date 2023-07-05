@@ -1,1 +1,3 @@
 .terraform/
+.env
+alvo-ssh-keys

@@ -1,11 +1,11 @@
 resource "aws_vpc" "vpc" {
-  cidr_block           = var.public_subnet
+  cidr_block           = var.vpc_cidr_notation
   //Tenancy defines how EC2 instances are distributed across physical hardware and affects pricing
   instance_tenancy     = "default"
   enable_dns_hostnames = true
 
   tags = {
-    Name = "${var.project}-${var.env}-vpc"
+    Name = "${var.project}-${var.environment}-vpc"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${var.project}-${var.env}-igw"
+    Name = "${var.project}-${var.environment}-igw"
   }
 }
 
@@ -30,7 +30,7 @@ resource "aws_subnet" "public_subnet_az1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project}-${var.env}-public-az1"
+    Name = "${var.project}-${var.environment}-public-az1"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "public_subnet_az2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project}-${var.env}-public-az2"
+    Name = "${var.project}-${var.environment}-public-az2"
   }
 }
 
@@ -56,7 +56,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name = "${var.project}-${var.env}-public-rt"
+    Name = "${var.project}-${var.environment}-public-rt"
   }
 }
 
@@ -77,10 +77,10 @@ resource "aws_subnet" "private_app_subnet_az1" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private_subnet
   availability_zone       = data.aws_availability_zones.available_zones.names[0]
-  map_public_ip_on_launch = fales
+  map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project}-${var.env}-private-app-az1"
+    Name = "${var.project}-${var.environment}-private-app-az1"
   }
 }
 
@@ -92,7 +92,7 @@ resource "aws_subnet" "private_app_subnet_az2" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project}-${var.env}-private-app-az2"
+    Name = "${var.project}-${var.environment}-private-app-az2"
   }
 }
 
@@ -104,7 +104,7 @@ resource "aws_subnet" "private_data_subnet_az1" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project}-${var.env}-private-data-az1"
+    Name = "${var.project}-${var.environment}-private-data-az1"
   }
 }
 
@@ -116,6 +116,6 @@ resource "aws_subnet" "private_data_subnet_az2" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "${var.project}-${var.env}-private-data-az2"
+    Name = "${var.project}-${var.environment}-private-data-az2"
   }
 }
