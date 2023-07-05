@@ -29,6 +29,27 @@ resource "aws_instance" "alvo-toast" {
   }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name = "deployer-key"
+
+  //storing ssh key on the server
+  public_key = tls_private_key.RSA.public_key_openssh
+}
+
+
+resource "tls_private_key" "RSA" {
+  algorithm = "RSA"
+  rsa_bits = 4096
+}
+
+resource "local_file" "alvo-ssh-keys" {
+	content = tls_private_key.RSA.private_key_pem
+	filename = "alvo-ssh-keys"
+}
+
+
+
+
 resource "aws_security_group" "alvo-toast" {
   name        = "alvo-toast"
   description = "my security group"
@@ -77,6 +98,7 @@ resource "aws_security_group" "alvo-toast" {
   ]
 
   tags = {
-    Name = "allow_tls"
+    Name = "allow_toast_tls"
   }
+
 }
