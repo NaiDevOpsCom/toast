@@ -21,6 +21,10 @@ This is EKS and terraform on AWS
  - To format : terraform fmt
  - Validate tf with : terraform validate
 
+ - To create infrastructure : terraform apply or terraform apply --auto-approve
+
+# Always destroy infastructure 
+ - terraform destroy --auto-approve
 
 # License
 MIT License
