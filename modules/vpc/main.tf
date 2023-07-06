@@ -112,7 +112,7 @@ resource "aws_subnet" "private_data_subnet_az1" {
 resource "aws_subnet" "private_data_subnet_az2" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private_data_2
-  availability_zone       = data.aws_availability_zones.available_zones.names[2]
+  availability_zone       = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = false
 
   tags = {
