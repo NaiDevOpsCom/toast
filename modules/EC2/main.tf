@@ -1,25 +1,29 @@
 terraform {
-	required_providers {
-		aws = {
-			source = "hashicorp/aws"
-		}
-	}
+  required_providers {
+    aws = {
+        source = "hashicorp/aws"
+    }
+  }
 }
 
 provider "aws" {
-	region = "us-east-1"
-	profile = "default"
+  region = "us-east-1"
+  profile = "default"
 }
 
-module "vpc" {
-  source = "./modules/vpc"
-  
+resource "aws_instance" "alvo-toast" {
+  ami = "ami-0e58f89e91723af4c"
+  instance_type = "t2.micro"
+  //This is interpolation or directive
+  key_name = "${aws_key_pair.deployer.key_name}"
+  vpc_security_group_ids = [aws_security_group.alvo-toast.id]
+#   user_data = data.template_file.user_data.rendered
+
+  tags = {
+	Name = "alvin-toast"
+  }
 }
 
-//TBD
-# module "EC2" {
-# 	source = "./modules"
-# }
 
 
 resource "aws_key_pair" "deployer" {
