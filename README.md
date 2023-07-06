@@ -12,12 +12,13 @@ This is EKS and terraform on AWS
 
 ## Features of toast
  - Creation on a VPC in aws with custom module 
+  - Please use your own variable inside the modules/<module>/<variable.tf> and cidr if possible
  - Creation of EC2 instance with IG, SG, ELB
  - Creation of a K8s cluster in AWS
 
 ## Commands
  - Initialize with : terraform init
- - Incase of tls upgrade use : terraform --upgrade
+ - Incase of tls upgrade use : terraform init --upgrade
  - To format : terraform fmt
  - Validate tf with : terraform validate
 
