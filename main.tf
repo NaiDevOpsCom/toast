@@ -21,6 +21,22 @@ module "vpc" {
 # 	source = "./modules"
 # }
 
+resource "aws_instance" "alvo-toast" {
+  ami = "ami-053b0d53c279acc90"
+  instance_type = "t2.micro"
+  subnet_id = module.vpc.public_subnet_az1_id
+  //This is interpolation or directive
+  key_name = "${aws_key_pair.deployer.key_name}"
+  vpc_security_group_ids = [aws_security_group.alvo-toast.id]
+#   user_data = data.template_file.user_data.rendered
+
+  tags = {
+	Name = "alvin-toast"
+  }
+}
+
+
+
 
 resource "aws_key_pair" "deployer" {
   key_name = "deployer-key"
@@ -46,6 +62,7 @@ resource "local_file" "alvo-ssh-keys" {
 resource "aws_security_group" "alvo-toast" {
   name        = "alvo-toast"
   description = "my security group"
+ 
   vpc_id      = module.vpc.vpc_id
 
   ingress = [ 
@@ -95,3 +112,4 @@ resource "aws_security_group" "alvo-toast" {
   }
 
 }
+

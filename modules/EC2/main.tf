@@ -12,11 +12,11 @@ provider "aws" {
 }
 
 resource "aws_instance" "alvo-toast" {
-  ami = "ami-0e58f89e91723af4c"
+  ami = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   //This is interpolation or directive
   key_name = "${aws_key_pair.deployer.key_name}"
-  vpc_security_group_ids = [aws_security_group.alvo-toast.id]
+  # vpc_security_group_ids = [aws_security_group.alvo-toast.id]
 #   user_data = data.template_file.user_data.rendered
 
   tags = {
