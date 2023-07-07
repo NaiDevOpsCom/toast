@@ -1,30 +1,15 @@
-terraform {
-  required_providers {
-    aws = {
-        source = "hashicorp/aws"
-    }
-  }
-}
-
-provider "aws" {
-  region = "us-east-1"
-  profile = "default"
-}
-
 resource "aws_instance" "alvo-toast" {
   ami = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
   //This is interpolation or directive
   key_name = "${aws_key_pair.deployer.key_name}"
   # vpc_security_group_ids = [aws_security_group.alvo-toast.id]
-#   user_data = data.template_file.user_data.rendered
+  # user_data = data.template_file.user_data.rendered
 
   tags = {
-	Name = "alvin-toast"
+    Name = "alvin-toast"
   }
 }
-
-
 
 resource "aws_key_pair" "deployer" {
   key_name = "deployer-key"
@@ -32,7 +17,6 @@ resource "aws_key_pair" "deployer" {
   //storing ssh key on the server
   public_key = tls_private_key.RSA.public_key_openssh
 }
-
 
 resource "tls_private_key" "RSA" {
   algorithm = "RSA"
@@ -49,7 +33,7 @@ resource "local_file" "alvo-ssh-keys" {
 
 resource "aws_security_group" "alvo-toast" {
   name        = "alvo-toast"
-  description = "my security group"
+  description = "Security Group to control traffic for Alvin Toast Compute"
   vpc_id      = module.vpc.vpc_id
 
   ingress = [ 
