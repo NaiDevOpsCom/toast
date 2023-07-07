@@ -1,5 +1,6 @@
-# toast
-This is EKS and terraform on AWS
+# Toast
+This is a mini project to learn about EKS and Terraform on AWS
+The purpose is to learn how to use terraform to deploy resources with my main intention being to experiment on how to manage the tf state e.g., choosing between S3/DynamoDB or Terraform Cloud state locking etc.
 
 ## Project name Toast
 
