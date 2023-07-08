@@ -1,12 +1,24 @@
 resource "aws_instance" "alvo-toast" {
   ami = "ami-053b0d53c279acc90"
   instance_type = "t2.micro"
-  # subnet_id = module.vpc.public_subnet_az1_id
+  
   subnet_id = var.subnet
   //This is interpolation or directive
   key_name = "${aws_key_pair.deployer.key_name}"
+
+  user_data = data.template_file.user_data.rendered
+
+  # 	user_data = <<-EOF
+	# 	#!/bin/bash
+  #   sudo apt-get update
+	# 	sudo apt install nginx
+	# 	sudo systemctl start nginx
+	# 	sudo systemctl enable nginx
+	# EOF
+
   vpc_security_group_ids = [aws_security_group.alvo-toast.id]
-#   user_data = data.template_file.user_data.rendered
+  # vpc_security_group_ids = var.security_gp_id
+
 
   tags = {
 	Name = "alvin-toast"
@@ -18,7 +30,6 @@ resource "aws_instance" "alvo-toast" {
 
 resource "aws_key_pair" "deployer" {
   key_name = "deployer-key"
-
   //storing ssh key on the server
   public_key = tls_private_key.RSA.public_key_openssh
 }
@@ -30,11 +41,15 @@ resource "tls_private_key" "RSA" {
 }
 
 resource "local_file" "alvo-ssh-keys" {
+	# content = tls_private_key.RSA.private_key_pem
 	content = tls_private_key.RSA.private_key_pem
-	filename = "alvo-ssh-keys"
+	filename = "alvo-ssh-keys.pem"
 }
 
 
+data "template_file" "user_data" {
+  template = "install_nginx.sh"
+}
 
 
 resource "aws_security_group" "alvo-toast" {
@@ -62,7 +77,7 @@ resource "aws_security_group" "alvo-toast" {
       to_port          = 22
       protocol         = "tcp"
       //The /32 means use a single ip
-      cidr_blocks      = ["105.163.1.236/32"] //Please change to your own IP address for this to work
+      cidr_blocks      = ["105.163.1.218/32"] //Please change to your own IP address for this to work
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
       security_groups  = []

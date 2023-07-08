@@ -3,5 +3,5 @@
 .terraform.lock.hcl
 terraform.tfstate.backup
 terraform.tfstate
-alvo-ssh-keys
+alvo-ssh-keys.pem
 .terraform.tfstate.lock.info

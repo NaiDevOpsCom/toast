@@ -7,3 +7,5 @@ variable "vpc_id" {
 variable "subnet" {
   type = string
 }
+
+
