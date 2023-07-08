@@ -10,7 +10,8 @@ module "ec2" {
   subnet = module.vpc.public_subnet_az1_id
 }
 
-module "sg" {
-  source = "./modules/sg"
-   vpc_id = module.vpc.vpc_id
-}
+# module "sg" {
+#   source = "./modules/sg"
+#   vpc_id = module.vpc.vpc_id
+  
+# }

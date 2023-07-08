@@ -5,19 +5,20 @@ resource "aws_instance" "alvo-toast" {
   subnet_id = var.subnet
   //This is interpolation or directive
   key_name = "${aws_key_pair.deployer.key_name}"
-  # user_data = file("./install_nginx")
-  # user_data = "${file("./install_apache.sh")}"
 
-  	user_data = <<-EOF
-		#!/bin/bash
-    sudo apt-get update
-		sudo apt install nginx
-		sudo systemctl start nginx
-		sudo systemctl enable nginx
-	EOF
+  user_data = data.template_file.user_data.rendered
+
+  # 	user_data = <<-EOF
+	# 	#!/bin/bash
+  #   sudo apt-get update
+	# 	sudo apt install nginx
+	# 	sudo systemctl start nginx
+	# 	sudo systemctl enable nginx
+	# EOF
 
   vpc_security_group_ids = [aws_security_group.alvo-toast.id]
-#   user_data = data.template_file.user_data.rendered
+  # vpc_security_group_ids = var.security_gp_id
+
 
   tags = {
 	Name = "alvin-toast"
@@ -46,6 +47,9 @@ resource "local_file" "alvo-ssh-keys" {
 }
 
 
+data "template_file" "user_data" {
+  template = "install_nginx.sh"
+}
 
 
 resource "aws_security_group" "alvo-toast" {
