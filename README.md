@@ -4,6 +4,8 @@ The purpose is to learn how to use terraform to deploy resources with my main in
 
 ## Project name Toast
 
+ - s3 module has a react website 
+
 ## Technologies used
  - terraform
   - You can install terraform from https://developer.hashicorp.com/terraform/downloads
