@@ -5,7 +5,7 @@ resource "aws_security_group" "alvo-toast" {
  
   vpc_id      = var.vpc_id
 
-  ingress = [ 
+  ingress = [
     {
       description      = "HTTP"
       from_port        = 80
