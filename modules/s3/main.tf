@@ -23,7 +23,7 @@ resource "aws_s3_bucket_public_access_block" "toast-public_access" {
 
 module "template_files" {
     source = "hashicorp/dir/template"
-    base_dir = "${path.module}../../frontend/build"
+    base_dir = "${path.module}/../../frontend/build"
 }
 
 
