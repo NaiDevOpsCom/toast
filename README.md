@@ -10,7 +10,8 @@ The purpose is to learn how to use terraform to deploy resources with my main in
  - terraform
   - You can install terraform from https://developer.hashicorp.com/terraform/downloads
   - EKS
-  -eksctl
+  - eksctl
+  - react for the frontend
 
 
 ## Features of toast
