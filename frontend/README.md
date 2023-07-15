@@ -79,9 +79,7 @@ Solution statement: To help reduce the high prevalence of obesity, cardiovascula
 - [Livelink](Link)
 - [Features](feature)
 - [Development](development)
-- [Setup](setup)
-- [Deployment](deployment)
-- [License](license)
+
 
 
 ## description
