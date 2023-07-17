@@ -7,10 +7,10 @@ resource "aws_s3_bucket" "toast-react-bucket" {
   }
 }
 
-resource "aws_s3_bucket_acl" "bucket_acl" {
-    bucket = aws_s3_bucket.toast-react-bucket.id
-    acl    = "public-read"
-}
+# resource "aws_s3_bucket_acl" "bucket_acl" {
+#     bucket = aws_s3_bucket.toast-react-bucket.id
+#     acl    = "public-read"
+# }
 
 resource "aws_s3_bucket_public_access_block" "toast-public_access" {
     bucket = aws_s3_bucket.toast-react-bucket.id
