@@ -1,19 +1,19 @@
 variable "project_name"{
-    type = "string"
+    type = string
 }
 
 variable "security_group"{
-    type = "string"
+    type = string
 }
 
 variable "subnet" {
-    type = "string"
+    type = string
 }
 
 variable "subnet_2" {
-    type = "string"
+    type = string
 }
 
 variable "vpc"{
-    type = "string"
+    type = string
 }
