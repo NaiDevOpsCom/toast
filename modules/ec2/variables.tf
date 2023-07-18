@@ -5,9 +5,13 @@ variable "vpc_id" {
 
 
 variable "subnet" {
-  type = string
+  description = "subnet"
 }
 
 variable "security_group" {
   type = string
+}
+
+variable "subnet_2"{
+  description = "subnet2"
 }

@@ -26,6 +26,27 @@ resource "aws_instance" "alvo-toast" {
 }
 
 
+resource "aws_instance" "alvo-toast-2" {
+  ami = "ami-053b0d53c279acc90"
+  instance_type = "t2.micro"
+  
+  subnet_id = var.subnet_2
+  //This is interpolation or directive
+  key_name = "${aws_key_pair.deployer.key_name}"
+
+  user_data = data.template_file.user_data_2.rendered
+
+
+  # vpc_security_group_ids = [aws_security_group.alvo-toast.id]
+  vpc_security_group_ids = [var.security_group]
+
+
+  tags = {
+	Name = "alvin-toast-2"
+  }
+}
+
+
 
 
 resource "aws_key_pair" "deployer" {
@@ -49,7 +70,10 @@ resource "local_file" "alvo-ssh-keys" {
 
 data "template_file" "user_data" {
   template = file("${path.module}/install_nginx.sh")
+}
 
+data "template_file" "user_data_2" {
+  template = file("${path.module}/do_stuff.sh")
 }
 
 
