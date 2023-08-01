@@ -34,7 +34,7 @@ resource "aws_instance" "alvo-toast-2" {
   //This is interpolation or directive
   key_name = "${aws_key_pair.deployer.key_name}"
 
-  user_data = data.template_file.user_data_2.rendered
+  user_data = data.template_file.data_2.rendered
 
 
   # vpc_security_group_ids = [aws_security_group.alvo-toast.id]
@@ -72,7 +72,7 @@ data "template_file" "user_data" {
   template = file("${path.module}/install_nginx.sh")
 }
 
-data "template_file" "user_data_2" {
+data "template_file" "data_2" {
   template = file("${path.module}/do_stuff.sh")
 }
 
