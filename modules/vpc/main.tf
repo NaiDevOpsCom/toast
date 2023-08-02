@@ -9,6 +9,38 @@ resource "aws_vpc" "vpc" {
   }
 }
 
+data "aws_region" "current" {}
+
+resource "aws_vpc_ipam" "pam" {
+  operating_regions {
+    region_name = data.aws_region.current.name
+  }
+}
+
+resource "aws_vpc_ipv6_cidr_block_association" "ipv6" {
+  ipv6_ipam_pool_id = aws_vpc_ipam_pool.ipv6.id
+  vpc_id = aws_vpc.vpc.id
+}
+
+
+resource "aws_vpc_ipam_pool" "ipv6" {
+  address_family = "ipv6"
+  ipam_scope_id  = aws_vpc_ipam.pam.public_default_scope_id
+  locale         = "us-east-1"
+  description    = "public ipv6"
+
+  aws_service    = "ec2"
+}
+
+# resource "aws_vpc_ipam_pool_cidr" "ipv6_test_public" {
+#   ipam_pool_id = aws_vpc_ipam_pool.ipv6.id
+#   cidr         = var.ipv6_cidr
+#   cidr_authorization_context {
+#     message   = var.message
+#     signature = var.signature
+#   }
+# }
+
 # create internet gateway and attach it to vpc
 resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.vpc.id
